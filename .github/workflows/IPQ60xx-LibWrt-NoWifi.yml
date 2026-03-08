@@ -105,26 +105,6 @@ jobs:
         cd $OPENWRT_PATH
         $GITHUB_WORKSPACE/$DIY_SCRIPT
 
-    - name: Debug mihomo(调试mihomo)
-      run: |
-        cd $OPENWRT_PATH
-        echo "=== feeds.conf.default ==="
-        cat feeds.conf.default
-        echo ""
-        echo "=== 搜索 mihomo 包 ==="
-        find . -name "Makefile" 2>/dev/null | xargs grep -l "luci-app-mihomo" 2>/dev/null || echo "luci-app-mihomo Makefile 未找到"
-        find . -name "Makefile" 2>/dev/null | xargs grep -l "PKG_NAME:=mihomo" 2>/dev/null || echo "mihomo 核心包 Makefile 未找到"
-        echo ""
-        echo "=== package/mihomo 目录 ==="
-        ls -la package/mihomo/ 2>/dev/null || echo "package/mihomo/ 不存在"
-        echo ""
-        echo "=== feeds/mihomo 目录 ==="
-        ls -la feeds/mihomo/ 2>/dev/null || echo "feeds/mihomo/ 不存在"
-        echo ""
-        echo "=== .config 中 mihomo 相关 ==="
-        grep -i mihomo $GITHUB_WORKSPACE/$GENERAL_CONFIG_FILE 2>/dev/null || echo "general config 中无 mihomo"
-        grep -i mihomo .config 2>/dev/null || echo ".config 中无 mihomo（已被 defconfig 丢弃）"
-        
     - name: Download DL Package(下载DL软件包)
       run: |
         cat $CONFIG_FILE $GENERAL_CONFIG_FILE | grep -v '^$' > $OPENWRT_PATH/.config
