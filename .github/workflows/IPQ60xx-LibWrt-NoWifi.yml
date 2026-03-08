@@ -125,16 +125,13 @@ jobs:
           cat "$GITHUB_WORKSPACE/$GENERAL_CONFIG_FILE" "$GITHUB_WORKSPACE/$CONFIG_FILE" > .config
           make defconfig
 
-          echo "===== CONFIG CHECK (TARGET/NOWIFI/MiHoMo) ====="
-          grep -E "CONFIG_TARGET_qualcommax|CONFIG_TARGET_qualcommax_ipq60xx" .config || true
           echo "----- SELECTED PROFILES -----"
-          grep -E "^CONFIG_TARGET_DEVICE_qualcommax_ipq60xx_DEVICE_.*=y" .config || true
+          grep -E "^CONFIG_TARGET_qualcommax_ipq60xx_DEVICE_.*=y" .config || true
           echo "----------------------------"
-
-          # 关键：必须选中 360v6，否则直接失败（避免回退编出 mango-dvk）
-          grep -q "^CONFIG_TARGET_DEVICE_qualcommax_ipq60xx_DEVICE_qihoo_360v6=y" .config || {
+          
+          # 必须选中 360v6：用固定字符串匹配（最稳）
+          grep -qF "CONFIG_TARGET_qualcommax_ipq60xx_DEVICE_qihoo_360v6=y" .config || {
             echo "ERROR: qihoo_360v6 is NOT selected in final .config."
-            echo "Hint: check configs/IPQ60XX_noWifi.config and any diy script that modifies .config."
             exit 1
           }
 
