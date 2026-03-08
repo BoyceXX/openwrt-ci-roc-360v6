@@ -62,3 +62,11 @@ rm -rf feeds/luci/applications/luci-app-openclash
 # 添加 mihomo（手动加包到 package/）
 rm -rf pac
 git clone --depth=1 -b main https://github.com/nikkinikki-org/OpenWrt-nikki.git package/nikki
+# 预下载 nikki 所需的 GeoIP/GeoSite 数据库
+mkdir -p $GITHUB_WORKSPACE/files/etc/nikki/run
+wget -qO $GITHUB_WORKSPACE/files/etc/nikki/run/geoip.metadb \
+  "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.metadb"
+wget -qO $GITHUB_WORKSPACE/files/etc/nikki/run/geosite.dat \
+  "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
+echo "=== GeoIP 文件检查 ==="
+ls -la $GITHUB_WORKSPACE/files/etc/nikki/run/
