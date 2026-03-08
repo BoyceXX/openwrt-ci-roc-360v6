@@ -60,5 +60,5 @@ rm -rf feeds/luci/applications/luci-app-openclash
 
 ### MiHoMo ###
 # 添加 mihomo（手动加包到 package/）
-rm -rf package/mihomo
-git clone --depth=1 -b main https://github.com/morytyann/OpenWrt-mihomo.git package/mihomo
+rm -rf pac
+git clone --depth=1 -b main https://github.com/nikkinikki-org/OpenWrt-nikki.git package/nikki
