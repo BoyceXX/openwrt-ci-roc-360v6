@@ -57,3 +57,8 @@ rm -rf feeds/packages/net/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2sock
 # 移除 OpenWrt Feeds 过时的LuCI版本
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-openclash
+
+### MiHoMo ###
+# 添加 mihomo（手动加包到 package/）
+rm -rf package/mihomo
+git clone --depth=1 -b main https://github.com/morytyann/OpenWrt-mihomo.git package/mihomo
