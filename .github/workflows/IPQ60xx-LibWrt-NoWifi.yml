@@ -111,7 +111,13 @@ jobs:
         cd $OPENWRT_PATH
         make defconfig
         make download -j$(nproc)
-
+        
+    - name: Copy custom files
+      run: |
+        if [ -d "$GITHUB_WORKSPACE/files" ]; then
+          cp -rf $GITHUB_WORKSPACE/files $OPENWRT_PATH/files
+        fi
+        
     - name: Compile Firmware(开始编译固件)
       id: compile
       run: |
