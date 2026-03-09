@@ -70,15 +70,21 @@ rm -rf feeds/packages/net/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2sock
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-openclash
 
-### MiHoMo ###
-# 添加 mihomo（手动加包到 package/）
-rm -rf pac
+### MiHoMo / Nikki ###
+rm -rf package/nikki
 git clone --depth=1 -b main https://github.com/nikkinikki-org/OpenWrt-nikki.git package/nikki
-# 预下载 nikki 所需的 GeoIP/GeoSite 数据库
-mkdir -p $GITHUB_WORKSPACE/files/etc/nikki/run
-wget -qO $GITHUB_WORKSPACE/files/etc/nikki/run/geoip.metadb \
-  "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.metadb"
-wget -qO $GITHUB_WORKSPACE/files/etc/nikki/run/geosite.dat \
-  "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
-echo "=== GeoIP 文件检查 ==="
-ls -la $GITHUB_WORKSPACE/files/etc/nikki/run/
+
+# 预下载 nikki 所需的 GeoIP/GeoSite 数据库（写入 OpenWrt 的 files/，会随固件打包）
+FILES_DIR="$PWD/files/etc/nikki/run"
+mkdir -p "$FILES_DIR"
+
+wget -qO "$FILES_DIR/geoip.metadb" \
+  "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.metadb" \
+  || { echo "ERROR: geoip.metadb download failed"; exit 1; }
+
+wget -qO "$FILES_DIR/geosite.dat" \
+  "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat" \
+  || { echo "ERROR: geosite.dat download failed"; exit 1; }
+
+echo "=== Nikki geo files ==="
+ls -la "$FILES_DIR"
