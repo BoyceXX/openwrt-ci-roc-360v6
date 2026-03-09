@@ -112,12 +112,6 @@ jobs:
         make defconfig
         make download -j$(nproc)
         
-    - name: Copy custom files
-      run: |
-        if [ -d "$GITHUB_WORKSPACE/files" ]; then
-          cp -rf $GITHUB_WORKSPACE/files $OPENWRT_PATH/files
-        fi
-        
     - name: Compile Firmware(开始编译固件)
       id: compile
       run: |
@@ -173,14 +167,13 @@ jobs:
           - **定位**：精简、稳定、高性能的主路由固件。
           - **内核**：6.12 (开启 NSS 硬件加速),默认无wifi。
           - **默认主题**：Bootstrap (官方默认，最稳定)。
-          - **科学上网**：集成 **PassWall 2** (基于 SingBox/Xray，性能更强)。
-          - **已剔除**：移除 Ariang, Frp, WolPlus, WechatPush, OAF(应用过滤), SmartDNS, Btop 等非核心或影响性能的插件。
-          - **必备工具**：保留 Samba4, DDNS, TTYD, DiskMan, Acme, WireGuard, SQM(QoS) 等实用功能。
+          - **科学上网**：集成 **Nikki (Mihomo)**。
+          - **已剔除**：移除 Ariang, Frp, WolPlus, SQM, WechatPush, OAF(应用过滤), SmartDNS, Btop 等非核心或影响性能的插件。
           - 💻 平台：${{ env.FIRMWARE_TAG }} (IPQ60xx 系列)
           - ⚽ 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
           - 🌐 默认地址: **192.168.2.1**
-          - 🔑 默认密码: none (首次登录需设置)
+          - 🔑 默认密码: password (首次登录需设置)
           ### 🧊 固件版本
           - 固件内核版本：**${{ env.VERSION_KERNEL }}**
           - 固件编译前最后一次➦[主源码](${{ env.REPO_URL }})更新记录
