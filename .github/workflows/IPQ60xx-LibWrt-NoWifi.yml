@@ -2,9 +2,10 @@ name: IPQ60XX-LibWrt-NoWifi
 
 on:
   workflow_dispatch:
-  workflow_call:
-  # schedule:
-  #   - cron: 0 20 * * *
+  schedule:
+  - cron: 0 20 * * 4
+  # workflow_call:
+
 
 env:
   REPO_URL: https://github.com/laipeng668/openwrt-6.x.git
