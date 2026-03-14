@@ -1,7 +1,7 @@
 name: IPQ60XX-LibWrt
 on:
   workflow_dispatch:
-  schedule:
+  #schedule:
   #- cron: 0 20 * * 4
   # workflow_call:
 
