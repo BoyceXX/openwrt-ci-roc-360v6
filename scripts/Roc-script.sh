@@ -81,11 +81,10 @@ echo "=== Nikki geo files ==="
 ls -la "$FILES_DIR"
 
 # -----------------------------
-# DAE：一般来自 feeds/packages，不需要额外 clone
-# 你可以加一个检查，方便确认确实存在
+# Momo（sing-box）
 # -----------------------------
-if [ -d "package/feeds/packages/dae" ] || [ -d "feeds/packages/net/dae" ]; then
-  echo "DAE: found in feeds."
-else
-  echo "WARN: DAE not found in feeds yet. Check: ./scripts/feeds search dae"
-fi
+rm -rf package/momo
+git clone --depth=1 -b main \
+  https://github.com/nikkinikki-org/OpenWrt-momo.git \
+  package/momo
+
